@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1577084469 source:c:\users\pepe_\onedrive\documentos\eduardo_c++\actividadintegradora3\ejercicio_3\main.cpp
+	<iostream>
+	<cstdlib>
+	<ctime>
+
