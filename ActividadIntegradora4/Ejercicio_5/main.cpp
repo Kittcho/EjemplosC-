@@ -60,6 +60,7 @@ public:
     string getZona();
     void setZona(string);
     void Plus();
+    string toString();
 private:
     string zona;
 };
@@ -77,31 +78,53 @@ Repartidor::Repartidor(string nombre, int edad, double salario, string zona) : E
 }
 
 void Repartidor::Plus(){
+    this->total = 0;
     if(this->edad < 25 && this->zona == "zona 3"){
         this->total = this->salario + this->PLUS;
+        cout << "Obtuvo el plus" << endl;
+    }else{
+        cout << "No obtuvo el plus." << endl;
+        this->total = this->salario;
     }
 }
 
-class Comercial : Empleado{
+string Repartidor::toString(){
+    cout << "El empleado repartidor " << this->nombre << " con la edad de " << this->edad << "  de la zona" << this->zona << " gano un total de " << this->total << endl;
+}
+
+class Comercial : public Empleado{
 public:
     Comercial(string, int, double, double);
     double getComision();
     void setComision(double);
     void Plus();
+    string toString();
 private:
     double comision;
 };
 
-Comercial::Comercial(string nombre, int edad, double salario, double zona) : Empleado(nombre, edad, salario){
+Comercial::Comercial(string nombre, int edad, double salario, double comision) : Empleado(nombre, edad, salario){
     this->comision = comision;
 }
 
 void Comercial::Plus(){
-    if(this->edad > 30 && this->comision == 200){
-        this->total = this->salario + this->PLUS;
+    this->total = 0;
+    if(this->edad > 30 && this->comision > 200){
+        this->total = this->salario + this->PLUS + this->comision;
+        cout << "Obtuvo el plus" << endl;
+    }else{
+        cout << "No obtuvo el plus." << endl;
+        this->total = this->salario + this->comision;
     }
 }
 
+double Comercial::getComision(){
+    return this->comision;
+}
+
+string Comercial::toString(){
+    cout << "El empleado comercial " << this->nombre << " con la edad de " << this->edad << " gano un total de " << this->total << endl;
+}
 
 int main()
 {
@@ -130,16 +153,74 @@ int main()
 
     Repartidor repartidor1("Alberto", 32, 1000, "zona 1");
     Repartidor repartidor2("Jose", 25, 900, "zona 3");
+    Repartidor repartidor3("Alex", 20, 900, "zona 3");
+    Repartidor repartidor4("Max", 20, 900, "zona 2");
 
-    cout << "Nombre repartidor #1:" << repartidor1.getNombre() << endl;
-    cout << "Edad repartidor #1:" << repartidor1.getEdad() << endl;
-    cout << "Salario repartidor #1:" << repartidor1.getSalario() << endl;
-    cout << "Zona repartidor #1:" << repartidor1.getZona() << endl;
-    cout << "Nombre repartidor #2:" << repartidor2.getNombre() << endl;
-    cout << "Edad repartidor #2:" << repartidor2.getEdad() << endl;
-    cout << "Salario repartidor #2:" << repartidor2.getSalario() << endl;
-    cout << "Zona repartidor #2:" << repartidor2.getZona() << endl;
+    cout << "Nombre repartidor #1: " << repartidor1.getNombre() << endl;
+    cout << "Edad repartidor #1: " << repartidor1.getEdad() << endl;
+    cout << "Salario repartidor #1: " << repartidor1.getSalario() << endl;
+    cout << "Zona repartidor #1: " << repartidor1.getZona() << endl;
+    repartidor1.Plus();
+    repartidor1.toString();
+    cout << endl;
+    cout << "Nombre repartidor #2: " << repartidor2.getNombre() << endl;
+    cout << "Edad repartidor #2: " << repartidor2.getEdad() << endl;
+    cout << "Salario repartidor #2: " << repartidor2.getSalario() << endl;
+    cout << "Zona repartidor #2: " << repartidor2.getZona() << endl;
+    repartidor2.Plus();
+    repartidor2.toString();
+    cout << endl;
+    cout << "Nombre repartidor #3: " << repartidor3.getNombre() << endl;
+    cout << "Edad repartidor #3: " << repartidor3.getEdad() << endl;
+    cout << "Salario repartidor #3: " << repartidor3.getSalario() << endl;
+    cout << "Zona repartidor #3: " << repartidor3.getZona() << endl;
+    repartidor3.Plus();
+    repartidor3.toString();
+    cout << endl;
+    cout << "Nombre repartidor #4: " << repartidor4.getNombre() << endl;
+    cout << "Edad repartidor #4: " << repartidor4.getEdad() << endl;
+    cout << "Salario repartidor #4: " << repartidor4.getSalario() << endl;
+    cout << "Zona repartidor #4: " << repartidor4.getZona() << endl;
+    repartidor4.Plus();
+    repartidor4.toString();
+    cout << endl;
 
+    Comercial comercial1("Pepe", 32, 1000, 250);
+    Comercial comercial2("Martha", 25, 900, 150);
+    Comercial comercial3("Javier", 45, 900, 199);
+    Comercial comercial4("Oscar", 20, 900, 400);
+
+    cout << "Nombre comercial #1: " << comercial1.getNombre() << endl;
+    cout << "Edad comercial #1: " << comercial1.getEdad() << endl;
+    cout << "Salario comercial #1: " << comercial1.getSalario() << endl;
+    cout << "Comision #1: " << comercial1.getComision() << endl;
+    comercial1.Plus();
+    comercial1.toString();
+    cout << endl;
+    cout << "Nombre comercial #2: " << comercial2.getNombre() << endl;
+    cout << "Edad comercial #2: " << comercial2.getEdad() << endl;
+    cout << "Salario comercial #2: " << comercial2.getSalario() << endl;
+    cout << "Comision #2: " << comercial2.getComision() << endl;
+    comercial2.Plus();
+    comercial2.toString();
+    cout << endl;
+    cout << "Nombre comercial #3: " << comercial3.getNombre() << endl;
+    cout << "Edad comercial #3: " << comercial3.getEdad() << endl;
+    cout << "Salario comercial #3: " << comercial3.getSalario() << endl;
+    cout << "Comision #3: " << comercial3.getComision() << endl;
+    comercial3.Plus();
+    comercial3.toString();
+    cout << endl;
+    cout << "Nombre comercial #4: " << comercial4.getNombre() << endl;
+    cout << "Edad comercial #4: " << comercial4.getEdad() << endl;
+    cout << "Salario comercial #4: " << comercial4.getSalario() << endl;
+    cout << "Comision #4: " << comercial4.getComision() << endl;
+    comercial4.Plus();
+    comercial4.toString();
+    cout << endl;
+
+    cin.get();
+    cin.get();
 
     return 0;
 }
