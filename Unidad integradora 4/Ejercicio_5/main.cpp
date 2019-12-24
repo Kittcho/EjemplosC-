@@ -16,6 +16,7 @@ protected:
     string nombre;
     int edad;
     double salario;
+    double total;
     const double PLUS = 300;
 };
 
@@ -25,21 +26,60 @@ Empleado::Empleado(string nombre, int edad, double salario){
     this->salario = salario;
 }
 
-class Repartidor : Empleado{
+string Empleado::getNombre(){
+    return this->nombre;
+}
+
+void Empleado::setNombre(string nombre){
+    this->nombre = nombre;
+}
+
+int Empleado::getEdad(){
+    return this->edad;
+}
+
+void Empleado::setEdad(int edad){
+    this->edad = edad;
+}
+
+ double Empleado::getSalario(){
+    return this->salario;
+ }
+
+ void Empleado::setSalario(double salario){
+    this->salario = salario;
+ }
+
+void Empleado::Plus(){
+    cout << "Plus del empleado";
+}
+
+class Repartidor : public Empleado{
 public:
     Repartidor(string, int, double, string);
     string getZona();
     void setZona(string);
+    void Plus();
 private:
     string zona;
 };
+
+string Repartidor::getZona(){
+    return this->zona;
+}
+
+void Repartidor::setZona(string zona){
+    this->zona = zona;
+}
 
 Repartidor::Repartidor(string nombre, int edad, double salario, string zona) : Empleado(nombre, edad, salario){
     this->zona = zona;
 }
 
-void Repartidor::plus(){
-    if(this->edad < 25 && this->zona == "zona 3")
+void Repartidor::Plus(){
+    if(this->edad < 25 && this->zona == "zona 3"){
+        this->total = this->salario + this->PLUS;
+    }
 }
 
 class Comercial : Empleado{
@@ -47,6 +87,7 @@ public:
     Comercial(string, int, double, double);
     double getComision();
     void setComision(double);
+    void Plus();
 private:
     double comision;
 };
@@ -55,8 +96,10 @@ Comercial::Comercial(string nombre, int edad, double salario, double zona) : Emp
     this->comision = comision;
 }
 
-void Comercial::plus(){
-    if(this->edad > 30 && this->comision == 200)
+void Comercial::Plus(){
+    if(this->edad > 30 && this->comision == 200){
+        this->total = this->salario + this->PLUS;
+    }
 }
 
 
@@ -85,7 +128,17 @@ int main()
     Crea una clase ejecutable donde crees distintos empleados y le apliques el plus para comprobar que funciona.
     */
 
+    Repartidor repartidor1("Alberto", 32, 1000, "zona 1");
+    Repartidor repartidor2("Jose", 25, 900, "zona 3");
 
+    cout << "Nombre repartidor #1:" << repartidor1.getNombre() << endl;
+    cout << "Edad repartidor #1:" << repartidor1.getEdad() << endl;
+    cout << "Salario repartidor #1:" << repartidor1.getSalario() << endl;
+    cout << "Zona repartidor #1:" << repartidor1.getZona() << endl;
+    cout << "Nombre repartidor #2:" << repartidor2.getNombre() << endl;
+    cout << "Edad repartidor #2:" << repartidor2.getEdad() << endl;
+    cout << "Salario repartidor #2:" << repartidor2.getSalario() << endl;
+    cout << "Zona repartidor #2:" << repartidor2.getZona() << endl;
 
 
     return 0;
