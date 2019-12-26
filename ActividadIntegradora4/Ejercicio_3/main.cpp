@@ -129,5 +129,8 @@ int main()
     cuenta2.Retirar(800);
     cout << "Saldo: $" << cuenta2.getCantidad() << endl;
 
+    cin.get();
+    cin.get();
+
     return 0;
 }

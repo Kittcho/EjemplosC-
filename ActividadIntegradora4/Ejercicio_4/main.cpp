@@ -2,43 +2,86 @@
 
 using namespace std;
 
+#define PROBABILIDAD_PRIMERA 0.10
+#define PROBABILIDAD_SEGUNDA 0.40
+
 class Vagon{
 public:
-    Vagon(int);
+    Vagon();
+    string getTipoVagon();
+    void setTipoVagon( string tipoVagon );
 private:
-    int tipoClase;
-    string asientos[40];
+    int asientos[40];
+    string tipoVagon;
 };
 
-Vagon::Vagon(int tipoClase){
-    for(int i = 0; i < sizeof(this->asientos); i++){
-        asientos[i] = "vacante";
+Vagon::Vagon(){
+    for(int i = 0; i < 40; i++){
+        this->asientos[i] = 0;
     }
-    this->tipoClase = tipoClase;
 }
+
+string Vagon::getTipoVagon(){
+    return this->tipoVagon;
+}
+
+void Vagon::setTipoVagon( string tipoVagon ){
+    this->tipoVagon = tipoVagon;
+}
+
 
 class Carro{
 public:
-    Carro();
-    void AgregarVagon(Vagon &);
+    Carro( int numeroVagones );
+    void AgregarVagon();
     Vagon* getVagones();
+    int getNumeroVagones();
+    void AsignarValoresVagon( int vagon, string tipoVagon );
+    void LlenarAsientos();
 private:
-    Vagon vagones[];
-    Vagon *p_vagon;
+    Vagon* vagones;
+    int numeroVagones;
 };
 
-Carro::Carro(){
-    this->p_vagon = this->vagones;
-}
-
-void Carro::AgregarVagon(Vagon &vagon){
-    this->p_vagon = &vagon;
-    this->p_vagon++;
+Carro::Carro( int numeroVagones ){
+    this->vagones = new Vagon[ numeroVagones ];
 }
 
 Vagon* Carro::getVagones(){
     return this->vagones;
 }
+
+int Carro::getNumeroVagones(){
+    return this->numeroVagones;
+}
+
+void Carro::AsignarValoresVagon( int vagon, string tipoVagon ){
+    this->vagones[ vagon - 1 ].setTipoVagon( tipoVagon );
+}
+
+void Carro::LlenarAsientos(){
+    for(int i=0; i < this->numeroVagones; i++){
+        if(this->vagones[i].getTipoVagon() == "Primera"){
+
+        }
+
+    }
+}
+
+/*
+int* a = NULL;   // Pointer to int, initialize to nothing.
+int n;           // Size needed for array
+cin >> n;        // Read in the size
+a = new int[n];  // Allocate n ints and save ptr in a.
+for (int i=0; i<n; i++) {
+    a[i] = 0;    // Initialize all elements to zero.
+}
+. . .  // Use a as a normal array
+delete [] a;  // When done, free memory pointed to by a.
+a = NULL;     // Clear a to prevent using invalid memory reference.
+
+*/
+
 
 int main()
 {
@@ -56,14 +99,19 @@ int main()
     cada asiento.
     */
 
-    Vagon vagon1(1);
-    Carro carro();
+    Vagon vagon1;
+    Vagon vagon2;
+    Vagon vagon3;
 
-    carro.AgregarVagon(&vagon1);
+    Carro tren(2);
 
-    Vagon vagones[] = carro.getVagones();
+    tren.AsignarValoresVagon( 1, "Primera");
+    tren.AsignarValoresVagon( 2, "Segunda");
 
-    for(int i = 0; i < sizeof(vagones)){
+
+
+    for(int i=0; i < tren.getNumeroVagones(); i++){
+        cout << tren.getVagones()[i].getTipoVagon() << endl;
 
     }
 
