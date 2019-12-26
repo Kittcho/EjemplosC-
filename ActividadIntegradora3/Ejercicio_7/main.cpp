@@ -6,6 +6,8 @@ using namespace std;
 
 int main()
 {
+    setlocale(LC_ALL, "");
+
     /*
     EJERCICIO 7.-
     Una empresa organizó un curso de actualización el curso está integrado por 8 alumnos que han
@@ -16,23 +18,14 @@ int main()
     Realice un programa que permita la lectura de los datos y el cálculo de las estadísticas
     */
 
-
     string alumnos[8][4];
-    string alumnosAprobados[8],
-           alumnosReprobados[8],
-           alumnosUltimoExamenRepro[8],
-           *p_aprovados,
-           *p_reprovados,
-           *p_ultimo;
+    string alumnosAprobados = "",
+           alumnosAprobadosUno = "",
+           alumnosUltimoExamenApro = "";
 
-   p_aprovados = alumnosAprobados;
-   p_reprovados = alumnosReprobados;
-   p_ultimo = alumnosUltimoExamenRepro;
-
-
-    int contaReprobadas = 0,
+    int contaAprobadas = 0,
         indice = 0;
-    bool ultimoExamenRepro = false;
+    bool ultimoExamenApro = false;
 
     for(int i = 0; i < 8; i++){
             cout << "Favor de ingresar el nombre del alumno #" << i + 1 << ": ";
@@ -45,25 +38,30 @@ int main()
 
             float valor = atof(alumnos[i][j + 1].c_str());
 
-            if( valor < 6 ){
-                if( j == 2 && contaReprobadas == 0){
-                    ultimoExamenRepro = true;
+            if( valor > 5 ){
+                if( j == 2 && contaAprobadas == 0){
+                    ultimoExamenApro = true;
                 }else
-                    contaReprobadas++;
+                    contaAprobadas++;
             }
         }
-        if(ultimoExamenRepro){
-            string valor = alumnos[i][0];
-            p_ultimo = valor;
-            p_ultimo++;
-        }else if(contaReprobadas > 0){
-            p_reprovados = alumnos[i][0];
-            p_reprovados++;
+        if(ultimoExamenApro){
+            alumnosUltimoExamenApro += alumnos[i][0] + ", ";
+        }else if(contaAprobadas > 0 && contaAprobadas < 3){
+            alumnosAprobadosUno += alumnos[i][0] + ", ";
         }else{
-            p_aprovados = alumnos[i][0];
-            p_aprovados++;
+            alumnosAprobados += alumnos[i][0] + ", ";
         }
+        contaAprobadas = 0;
+        ultimoExamenApro = false;
     }
+
+    cout << "Alumnos que aprobaron todos los exámenes: " << alumnosAprobados << endl;
+    cout << "Alumnos que aprobaron al menos un examen: " << alumnosAprobadosUno << endl;
+    cout << "Alumnos que aprobaron únicamente el último examen: " << alumnosUltimoExamenApro << endl;
+
+    cin.get();
+    cin.get();
 
     return 0;
 }
