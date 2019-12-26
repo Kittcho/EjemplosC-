@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -10,14 +12,14 @@ public:
     Vagon();
     string getTipoVagon();
     void setTipoVagon( string tipoVagon );
+    string asientos[40];
 private:
-    int asientos[40];
     string tipoVagon;
 };
 
 Vagon::Vagon(){
     for(int i = 0; i < 40; i++){
-        this->asientos[i] = 0;
+        this->asientos[i] = "vacio";
     }
 }
 
@@ -38,12 +40,15 @@ public:
     int getNumeroVagones();
     void AsignarValoresVagon( int vagon, string tipoVagon );
     void LlenarAsientos();
+    void MostrarDatosVagones();
 private:
     Vagon* vagones;
     int numeroVagones;
+    void CalcularAsientos( int indice, double prc_ocupados );
 };
 
 Carro::Carro( int numeroVagones ){
+    this->numeroVagones = numeroVagones;
     this->vagones = new Vagon[ numeroVagones ];
 }
 
@@ -59,12 +64,33 @@ void Carro::AsignarValoresVagon( int vagon, string tipoVagon ){
     this->vagones[ vagon - 1 ].setTipoVagon( tipoVagon );
 }
 
-void Carro::LlenarAsientos(){
-    for(int i=0; i < this->numeroVagones; i++){
-        if(this->vagones[i].getTipoVagon() == "Primera"){
+void Carro::CalcularAsientos( int indice, double prc_ocupados ){
+    srand((unsigned)time(NULL));
 
+    for(int i = 0; i < 40; i++){
+        if(rand()% 100 < prc_ocupados){
+            this->vagones[ indice ].asientos[i] = "Ocupado";
         }
+    }
+}
 
+void Carro::LlenarAsientos(){
+    for(int i = 0; i < this->numeroVagones; i++){
+        if( this->vagones[i].getTipoVagon() == "Primera" ){
+            this->CalcularAsientos( i, 10 );
+        }else if( this->vagones[i].getTipoVagon() == "Segunda" ){
+            this->CalcularAsientos( i, 40 );
+        }
+    }
+}
+
+void Carro::MostrarDatosVagones(){
+    for(int i = 0; i < this->numeroVagones; i++){
+        cout << "Vagon #" << i + 1 << ", tipo = " << this->vagones[i].getTipoVagon() << ":\n";
+        for(int j = 0; j < 40; j++){
+            cout << "Asiento #" << j+1 << ": " << this->vagones[i].asientos[j] << endl;
+        }
+        cout << endl;
     }
 }
 
@@ -98,23 +124,16 @@ int main()
     Escriba una función main() que contenga un objeto Carro, llénelo aleatoriamente e imprima el estado de
     cada asiento.
     */
-
-    Vagon vagon1;
-    Vagon vagon2;
-    Vagon vagon3;
-
     Carro tren(2);
 
     tren.AsignarValoresVagon( 1, "Primera");
     tren.AsignarValoresVagon( 2, "Segunda");
 
+    tren.LlenarAsientos();
+    tren.MostrarDatosVagones();
 
-
-    for(int i=0; i < tren.getNumeroVagones(); i++){
-        cout << tren.getVagones()[i].getTipoVagon() << endl;
-
-    }
-
+    cin.get();
+    cin.get();
 
     return 0;
 }
