@@ -95,14 +95,15 @@ private:
 
 class ClaseExterna{
 public:
-    Cita CreaCita();
+    ClaseExterna();
 private:
-
+    Cita* citas;
 };
 
-Cita ClaseExterna::CreaCita(){
-    Cita nuevaCita()
+ClaseExterna::ClaseExterna(){
+    this->citas = new Citas[10];
 }
+
 
 int main()
 {
