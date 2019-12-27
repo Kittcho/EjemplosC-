@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1577081303 source:c:\github\ejemplosc-\actividadintegradora3\ejercicio_9\main.cpp
+	<iostream>
+	<fstream>
+
