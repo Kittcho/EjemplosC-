@@ -129,7 +129,7 @@ bool Fecha::ValidaFechaStr(){
         {
             conta++;
             numMes = i;
-            this->mes = conta;
+            this->mes = i + 1;
             break;
         }
     }
@@ -251,7 +251,7 @@ bool ClaseExterna::CrearCita( string nombre_1, string nombre_2, string lugarDeRe
             this->indice++;
         }
     }else{
-        cout << "\nNo se puede registrar la cita debio a que se alcanzo el maximo de citas a registrar." << endl;
+        cout << "\n***** Alerta: No se puede registrar la cita debio a que se alcanzo el maximo de citas a registrar. *****" << endl;
         resp = false;
     }
     return resp;
@@ -277,7 +277,7 @@ bool ClaseExterna::CrearCita( string nombre_1, string nombre_2, string lugarDeRe
             this->indice++;
         }
     }else{
-        cout << "\nNo se puede registrar la cita debio a que se alcanzo el maximo de citas a registrar." << endl;
+        cout << "\n***** Alerta: No se puede registrar la cita debio a que se alcanzo el maximo de citas a registrar. *****" << endl;
         resp = false;
     }
     return resp;
