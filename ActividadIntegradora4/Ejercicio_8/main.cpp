@@ -244,14 +244,14 @@ bool ClaseExterna::CrearCita( string nombre_1, string nombre_2, string lugarDeRe
             this->citas[ this->indice ].setNombre_1( "" );
             this->citas[ this->indice ].setNombre_2( "" );
             this->citas[ this->indice ].setLugarDeReunion( "" );
-            cout << "No se registro la cita por error en la fecha" << endl;
+            cout << "\nNo se registro la cita por error en la fecha" << endl;
         }else
         {
-            cout << "Se registro correctamente la cita";
+            cout << "\nSe registro correctamente la cita" << endl;
             this->indice++;
         }
     }else{
-        cout << "No se puede registrar la cita debio a que se alcanzo el maximo de citas a registrar.";
+        cout << "\nNo se puede registrar la cita debio a que se alcanzo el maximo de citas a registrar." << endl;
         resp = false;
     }
     return resp;
@@ -270,14 +270,14 @@ bool ClaseExterna::CrearCita( string nombre_1, string nombre_2, string lugarDeRe
             this->citas[ this->indice ].setNombre_1( "" );
             this->citas[ this->indice ].setNombre_2( "" );
             this->citas[ this->indice ].setLugarDeReunion( "" );
-            cout << "No se registro la cita por error en la fecha" << endl;
+            cout << "\nNo se registro la cita por error en la fecha" << endl;
         }else
         {
-            cout << "Se registro correctamente la cita" << endl;
+            cout << "\nSe registro correctamente la cita" << endl;
             this->indice++;
         }
     }else{
-        cout << "No se puede registrar la cita debio a que se alcanzo el maximo de citas a registrar.";
+        cout << "\nNo se puede registrar la cita debio a que se alcanzo el maximo de citas a registrar." << endl;
         resp = false;
     }
     return resp;
@@ -328,36 +328,100 @@ int main()
 
     setlocale(LC_ALL, "");
 
-    Fecha fecha( 2020, 3, 31, 18 );
+    ClaseExterna ce;
+    int opcion = 0,
+        opcionMes = 0;
+    string nom_persona1 = "",
+           nom_persona2 = "",
+           lugarCita = "",
+           sMes = "";
+    int anio = 0,
+        mes = 0,
+        dia = 0,
+        hora = 0;
+    bool opcionCorrecta = true;
 
-    if( fecha.getMensajeError() != "" ){
-        cout << fecha.getMensajeError() << endl;
-    }else{
-        cout << "Año: " << fecha.getAnio() << endl;
-        cout << "Mes: " << fecha.getMes() << endl;
-        cout << "Día: " << fecha.getDia() << endl;
-        cout << "Hora: " << fecha.getHora() << endl;
-    }
+    cout << "" << endl;
 
+    cout << "===================================" << endl;
+    cout << "======= M E N Ú   C I T A S =======" << endl;
+    cout << "===================================" << endl;
     cout << endl;
 
-    Fecha fecha2( 2020, "enero", 31, 5 );
+    cout << "Opciones:" << endl;
+    cout << "1 = Agregar cita." << endl;
+    cout << "2 = Visualizar las citas agendadas." << endl;
 
-    if( fecha2.getMensajeError() != "" ){
-        cout << fecha2.getMensajeError() << endl;
-    }else{
-        cout << "Año: " << fecha2.getAnio() << endl;
-        cout << "Mes: " << fecha2.getSMes() << endl;
-        cout << "Día: " << fecha2.getDia() << endl;
-        cout << "Hora: " << fecha2.getHora() << endl;
-    }
+    do{
+        cout << endl;
+        cout << "Favor de introducir la opción deseada: ";
+        cin >> opcion;
 
-    ClaseExterna ce;
+        switch( opcion ){
+            case 1:
+                cout << "Favor de ingresa el nombre de la primera persona: ";
+                cin >> nom_persona1;
 
-    ce.CrearCita("Alberto", "Denisse", "Forum", 2020, 2, 29, 14);
+                cout << "Favor de ingresa el nombre de la segunda persona: ";
+                cin >> nom_persona2;
+
+                cout << "Favor de ingresar el lugar de la cita: ";
+                cin >> lugarCita;
+
+                cout << "*** Datos de la fecha ***" << endl;
+
+                cout << "> Favor de ingresar el año: ";
+                cin >> anio;
+
+                do
+                {
+                    cin.sync();
+                    cout << "** El mes se puede introducir por número o letra (en minusculas)\nPara número pulse 1, para letra pulse 2: ";
+                    cin >> opcionMes;
+
+                    opcionCorrecta = true;
+
+                    if( opcionMes == 1 ){
+                        cout << "> Favor de ingresar el mes (Número): ";
+                        cin >> mes;
+                    }else if( opcionMes == 2 ){
+                        cout << "> Favor de ingresar el mes (Letra): ";
+                        cin >> sMes;
+                    }else{
+                        opcionCorrecta = false;
+                        cout << "Opción incorrecta, favor de intentar de nuevo." << endl;
+                    }
+                }while(not opcionCorrecta);
+
+
+                cout << "> Favor de ingresar el dia: ";
+                cin >> dia;
+
+                cout << "> Favor de ingresar el la hora (24 hrs): ";
+                cin >> hora;
+
+                if( opcionMes == 1 ){
+                    ce.CrearCita( nom_persona1, nom_persona2, lugarCita, anio, mes, dia, hora );
+                }else{
+                    ce.CrearCita( nom_persona1, nom_persona2, lugarCita, anio, sMes, dia, hora );
+                }
+
+            break;
+            case 2:
+                ce.ConsultarCitas();
+            break;
+            default:
+                cout << "Opción invalida, favor de verificar." << endl;
+            break;
+        }
+
+    }while( true );
+
+
+    /*ce.CrearCita("Alberto", "Denisse", "Forum", 2020, 2, 29, 14);
     ce.CrearCita("Mario", "Cruz Ernesto", "La Primavera", 2019, 12, 28, 12);
     ce.CrearCita("Yolanda", "Jesus Alberto", "Sala B-2", 2019, "diciembre", 31, 11);
-    ce.ConsultarCitas();
+    ce.ConsultarCitas();*/
 
 
     return 0;
